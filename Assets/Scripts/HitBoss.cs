@@ -5,25 +5,26 @@ using UnityEngine;
 
 
 public class HitBoss : MonoBehaviour
+{
+    private float damage;
+
+    private void Start()
     {
-        public int damage;
+        damage = 1.0f;
+    }
+    private void Update()
+    {
+        damage -= Time.deltaTime;
+    }
 
-        void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Player" && damage < 0)
         {
-            if(col.CompareTag("Player"))
-            {
-                col.GetComponent<PlayerMovementScript>().hp_min -= damage;
-            }
-        }
-        void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
+            Debug.Log(General.Get_hpMin());
+            damage = 1.0f;
+            General.Set_hpMin(25);
         }
     }
+}
 

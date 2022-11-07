@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
-    
     public class Boss : MonoBehaviour
     {
             public int rutine;
@@ -300,14 +298,27 @@ using UnityEngine.UI;
             }else{
                 if(!death)
                 {
-                    ani.SetTrigger("dead");
+                    ani.SetBool("attack", true);
+                    ani.SetBool("run", true);
+                    
+                    ani.SetBool("attack", false);
+                    ani.SetBool("run", false);
+                ani.SetBool("walk", false);
+                ani.SetTrigger("dead");
                     death = true;
                     musica.enabled = false;
                     teleport.SetActive(true);
+                    Invoke("carregarCredits", 3.0f);
+                    
                 }
-                SceneManager.LoadScene("FinalBoss");
+                
             }
         }
+
+    void carregarCredits()
+    {
+        SceneManager.LoadScene("FinalBoss");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
